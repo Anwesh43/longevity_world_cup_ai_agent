@@ -9,6 +9,9 @@ class LWCService:
         self.client = BaseHTTPClient(os.environ["LWC_BASE_URL"])
         self.lwcPersonIDMap = {}
 
+    def getBaseURL(self):
+        return os.environ["LWC_BASE_URL"]
+
     def getLWCPersons(self):
         try:
             response = self.client.getCall("api/data/athletes")

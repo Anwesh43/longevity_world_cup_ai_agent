@@ -9,3 +9,7 @@ def getLongeivityWorldCupPersons():
 def getLongeivityWorldCup(name : str):
     print(f"Calling getLongeivityWorldCup tool {name}")
     return lwcService.getLWCPerson(name)
+
+def getImageBaseURL():
+    print(f"Calling getImageBaseURL tool")
+    return lwcService.getBaseURL()
