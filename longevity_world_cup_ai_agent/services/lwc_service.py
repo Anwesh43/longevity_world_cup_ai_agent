@@ -7,14 +7,30 @@ load_dotenv()
 class LWCService:
     def __init__(self):
         self.client = BaseHTTPClient(os.environ["LWC_BASE_URL"])
+        self.lwcPersonIDMap = {}
 
     def getLWCPersons(self):
         try:
             response = self.client.getCall("api/data/athletes")
-            return response 
+            result = []
+            for res in response:
+                obj = {}
+                obj["name"] = res["Name"]
+                obj["CurrentPosition"] = res["CurrentPlacement"]
+                self.lwcPersonIDMap[obj["name"]] = res 
+                result.append(obj)
+            return result 
         except Exception as e:
             print("Error", e)
             return {
                 "status": "Error",
                 "message": str(e)
             }
+    def getLWCPerson(self, name : str):
+        if not(name in self.lwcPersonIDMap):
+            return {
+                "status": "not found",
+                "results": []
+            }
+        return self.lwcPersonIDMap[name]
+    
